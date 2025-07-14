@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f0f0; /* 밝은 회색 배경 */
+            background-color: #2c3e50; /* 어두운 배경 */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -19,11 +19,11 @@
             overflow: hidden; /* 스크롤바 방지 */
         }
         canvas {
-            background-color: #eee; /* 캔버스 배경색 */
+            background-color: #34495e; /* 캔버스 배경색 (더 어둡게) */
             display: block;
-            border: 4px solid #333;
+            border: 4px solid #1a252f; /* 테두리도 더 어둡게 */
             border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* 그림자 더 강조 */
             touch-action: none; /* 터치 이벤트 기본 동작 방지 (스크롤 등) */
         }
         .game-container {
@@ -32,42 +32,42 @@
             align-items: center;
             gap: 20px;
             padding: 20px;
-            background-color: #fff;
+            background-color: #4a627a; /* 컨테이너 배경색 (어둡게) */
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* 그림자 더 강조 */
             max-width: 90%; /* 화면 너비에 맞게 조절 */
             width: 600px; /* 최대 너비 설정 */
             box-sizing: border-box;
         }
         h1 {
-            color: #333;
+            color: #ecf0f1; /* 밝은 텍스트 색상 */
             font-size: 2.5rem;
             font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             margin-bottom: 10px;
         }
         .score-display, .message-box {
             font-size: 1.2rem;
             font-weight: 600;
-            color: #555;
+            color: #bdc3c7; /* 밝은 회색 텍스트 */
             margin-top: -10px;
             margin-bottom: 10px;
         }
         .message-box {
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 2px solid #666;
+            background-color: rgba(44, 62, 80, 0.9); /* 어두운 배경의 메시지 박스 */
+            border: 2px solid #7f8c8d; /* 테두리 색상 */
             border-radius: 8px;
             padding: 15px 25px;
             text-align: center;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #333;
+            color: #ecf0f1; /* 밝은 텍스트 색상 */
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 100;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             display: none; /* 기본적으로 숨김 */
         }
         .message-box button {
@@ -76,17 +76,17 @@
             font-size: 1.2rem;
             font-weight: 700;
             color: #fff;
-            background: linear-gradient(145deg, #6a11cb, #2575fc);
+            background: linear-gradient(145deg, #8e44ad, #9b59b6); /* 보라색 계열 */
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         .message-box button:hover {
-            background: linear-gradient(145deg, #2575fc, #6a11cb);
+            background: linear-gradient(145deg, #9b59b6, #8e44ad);
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
         }
         .controls {
             display: flex;
@@ -98,23 +98,25 @@
             font-size: 1.1rem;
             font-weight: 600;
             color: #fff;
-            background: linear-gradient(145deg, #ff6b6b, #ee4c4c);
+            background: linear-gradient(145deg, #e74c3c, #c0392b); /* 빨간색 계열 */
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         .control-button:hover {
-            background: linear-gradient(145deg, #ee4c4c, #ff6b6b);
+            background: linear-gradient(145deg, #c0392b, #e74c3c);
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
         }
         .control-button.start-button {
-            background: linear-gradient(145deg, #4CAF50, #2E8B57);
+            background: linear-gradient(145deg, #2ecc71, #27ae60); /* 초록색 계열 */
         }
         .control-button.start-button:hover {
-            background: linear-gradient(145deg, #2E8B57, #4CAF50);
+            background: linear-gradient(145deg, #27ae60, #2ecc71);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
         }
 
         /* 모바일 터치 컨트롤 */
@@ -129,23 +131,23 @@
         .touch-button {
             width: 100px;
             height: 60px;
-            background: linear-gradient(145deg, #007bff, #0056b3);
+            background: linear-gradient(145deg, #3498db, #2980b9); /* 파란색 계열 */
             color: white;
             font-size: 1.5rem;
             font-weight: bold;
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: all 0.2s ease;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .touch-button:active {
-            background: linear-gradient(145deg, #0056b3, #007bff);
+            background: linear-gradient(145deg, #2980b9, #3498db);
             transform: translateY(2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         /* 반응형 디자인 */
@@ -251,7 +253,7 @@
             width: 0, // 캔버스 너비에 따라 동적으로 설정
             height: 20,
             padding: 10,
-            offsetX: 45,
+            offsetX: 0, // 벽돌을 가운데로 정렬하기 위해 동적으로 계산
             offsetY: 60
         };
 
@@ -260,6 +262,9 @@
         function createBricks() {
             bricks = [];
             brick.width = (canvas.width - (brick.column + 1) * brick.padding) / brick.column; // 캔버스 너비에 따라 벽돌 너비 동적 계산
+            // 벽돌을 가운데로 정렬하기 위한 offsetX 계산
+            brick.offsetX = (canvas.width - (brick.column * brick.width + (brick.column - 1) * brick.padding)) / 2;
+
             for (let r = 0; r < brick.row; r++) {
                 bricks[r] = [];
                 for (let c = 0; c < brick.column; c++) {
@@ -281,7 +286,7 @@
         function drawBall() {
             ctx.beginPath();
             ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-            ctx.fillStyle = '#fff'; // 하얀색 공
+            ctx.fillStyle = '#39FF14'; // 형광 녹색 (Neon Green)
             ctx.fill();
             ctx.closePath();
         }
