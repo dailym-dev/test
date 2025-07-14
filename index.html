@@ -399,6 +399,10 @@
             } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
                 leftPressed = true;
             }
+            // 메시지 박스가 표시된 상태에서 Enter 키를 누르면 메시지 박스 닫기
+            if (messageBox.style.display === 'block' && e.key === 'Enter') {
+                messageButton.click(); // '확인' 버튼 클릭 이벤트 발생
+            }
         });
 
         document.addEventListener('keyup', (e) => {
